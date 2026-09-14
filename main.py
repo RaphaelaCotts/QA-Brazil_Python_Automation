@@ -1,7 +1,7 @@
 import time
 
-import pages import UrbanRoutesPage
-import selenium.webdriver import Chrome
+import pages_import_UrbanRoutesPage
+import selenium.webdriver_import_Chrome
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
