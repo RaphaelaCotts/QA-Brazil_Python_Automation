@@ -11,7 +11,9 @@ class TestUrbanRoutes:
         # Habilita os logs de performance — necessário para recuperar o código de confirmação do telefone
         from selenium.webdriver import DesiredCapabilities
         capabilities = DesiredCapabilities.CHROME
-        capabilities["goog:loggingPrefs"] = {'performance': 'ALL'}
+        options = webdriver.ChromeOptions()
+        options.set_capability("goog:loggingPrefs", {'performance': 'ALL'})
+        cls.driver = webdriver.Chrome(options=options)
         cls.driver = webdriver.Chrome()
         cls.driver.implicitly_wait(5)
 
@@ -48,7 +50,7 @@ class TestUrbanRoutes:
         routes_page = UrbanRoutesPage(self.driver)
         routes_page.set_route_addresses(data.ADDRESS_FROM, data.ADDRESS_TO)
         routes_page.click_call_a_taxi_button()
-
+        routes_page.click_comfort_option()
         routes_page.set_phone(data.PHONE_NUMBER)
 
         assert routes_page.get_inserted_phone_number() == data.PHONE_NUMBER
@@ -59,7 +61,7 @@ class TestUrbanRoutes:
         routes_page = UrbanRoutesPage(self.driver)
         routes_page.set_route_addresses(data.ADDRESS_FROM, data.ADDRESS_TO)
         routes_page.click_call_a_taxi_button()
-
+        routes_page.click_comfort_option()
         routes_page.set_card(data.CARD_NUMBER, data.CARD_CODE)
 
         assert routes_page.get_current_payment_method() == 'Cartão'
@@ -70,7 +72,7 @@ class TestUrbanRoutes:
         routes_page = UrbanRoutesPage(self.driver)
         routes_page.set_route_addresses(data.ADDRESS_FROM, data.ADDRESS_TO)
         routes_page.click_call_a_taxi_button()
-
+        routes_page.click_comfort_option()
         routes_page.set_message_for_driver(data.MESSAGE_FOR_DRIVER)
 
         assert routes_page.get_message_for_driver() == data.MESSAGE_FOR_DRIVER
